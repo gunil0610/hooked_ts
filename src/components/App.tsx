@@ -4,75 +4,10 @@ import Header from './Header';
 import Movie from './Movie';
 import Search from './Search';
 
-const MOVIE_API_URL = 'https://www.omdbapi.com/?s=man&apikey=4a3b711b'; // you should replace this with yours
+import { ActionType } from '../state/types';
+import { reducer, initialState } from '../state/reducers';
 
-interface MovieType {
-  Title: string;
-  Year: string;
-  imdbID: string;
-  Type: string;
-  Poster: string;
-}
-
-// action-types
-enum ActionType {
-  SEARCH_MOVIES_REQUEST = 'SEARCH_MOVIES_REQUEST',
-  SEARCH_MOVIES_SUCCESS = 'SEARCH_MOVIES_SUCCESS',
-  SEARCH_MOVIES_FAILURE = 'SEARCH_MOVIES_FAILURE',
-}
-
-// actions
-interface SearchMoviesRequest {
-  type: ActionType.SEARCH_MOVIES_REQUEST;
-}
-interface SearchMoviesSuccess {
-  type: ActionType.SEARCH_MOVIES_SUCCESS;
-  payload: MovieType[];
-}
-interface SearchMoviesFailure {
-  type: ActionType.SEARCH_MOVIES_FAILURE;
-  error: string;
-}
-
-type Action = SearchMoviesRequest | SearchMoviesSuccess | SearchMoviesFailure;
-
-// reducer
-interface SearchMoviesState {
-  loading: boolean;
-  movies: MovieType[];
-  errorMessage: string | null;
-}
-
-const initialState: SearchMoviesState = {
-  loading: true,
-  movies: [],
-  errorMessage: null,
-};
-
-const reducer = (state: SearchMoviesState, action: Action) => {
-  switch (action.type) {
-    case ActionType.SEARCH_MOVIES_REQUEST:
-      return {
-        ...state,
-        loading: true,
-        errorMessage: null,
-      };
-    case ActionType.SEARCH_MOVIES_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        movies: action.payload,
-      };
-    case ActionType.SEARCH_MOVIES_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        errorMessage: action.error,
-      };
-    default:
-      return state;
-  }
-};
+const MOVIE_API_URL = 'https://www.omdbapi.com/?s=man&apikey=4a3b711b';
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);

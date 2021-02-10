@@ -1,13 +1,7 @@
+import { MovieType } from '../state/types';
+
 const DEFAULT_PLACEHOLDER_IMAGE =
   'https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_SX300.jpg';
-
-interface MovieType {
-  Title: string;
-  Year: string;
-  imdbID: string;
-  Type: string;
-  Poster: string;
-}
 
 const Movie: React.FC<{ movie: MovieType }> = ({ movie }) => {
   const poster =
